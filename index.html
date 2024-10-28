@@ -1,38 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hora</title>
+    <title>Hora do Funcionário</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="header.css">
-    <link rel="icon" href="https://raw.githubusercontent.com/VictorCardosoOl/Eita-Marinho/main/img/favicon.ico"
-        type="image/x-icon">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
+    <link rel="icon" href="https://raw.githubusercontent.com/VictorCardosoOl/Eita-Marinho/main/img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
 </head>
-
 <body>
-
     <header>
         <nav>
-            
-                <div class="text-input">
-                    <input type="text" id="inputNome" placeholder="Digite um nome..." oninput="atualizarNome()" />
-                </div>
-    
+            <div class="text-input">
+                <input type="text" id="inputNome" placeholder="Digite um nome..." oninput="atualizarNome()" />
+            </div>
             <main class="hora">
                 <div class="date-container" id="currentDate"></div>
             </main>
@@ -41,100 +23,73 @@
     </header>
 
     <main class="main-content">
-        <div class="clock-container">
-            <div class="clock" id="entrada">
-                <div class="container">
-                    <div class="center">
-                        <button class="btn" onclick="copiarTexto('entrada')">
-                            <p>Entrada: <span id="resultadoEntrada"></span> (<span id="nomePessoaEntrada">Victor Cardoso</span>)</p>
-                            <div class="time" id="textoParaCopiarEntrada">12:00:00</div>
-                        </button>
-                    </div>
+        <!-- Botão de marcação de Entrada -->
+        <div class="clock-container" id="entrada">
+            <div class="container">
+                <div class="center">
+                    <button class="btn" onclick="copiarTexto('Entrada')">
+                        <p>Entrada: <span id="resultadoEntrada"></span> (<span id="nomePessoaEntrada">Victor Cardoso</span>)</p>
+                        <div class="time" id="textoParaCopiarEntrada">12:00:00</div>
+                    </button>
                 </div>
             </div>
-
         </div>
 
-        <div class="clock-container">
-            <div class="clock" id="almoco">
-                <div class="container">
-                    <div class="center">
-                        <button class="btn" onclick="copiarTexto('almoco')">
-                            <p>Almoço: <span id="resultadoAlmoco"></span> (<span id="nomePessoaAlmoco">Victor Cardoso</span>)</p>
-                            <div class="time" id="textoParaCopiarAlmoco">12:00:00</div>
-                        </button>
-                    </div>
+        <!-- Botão de marcação de Almoço -->
+        <div class="clock-container" id="almoco">
+            <div class="container">
+                <div class="center">
+                    <button class="btn" onclick="copiarTexto('Almoço')">
+                        <p>Almoço: <span id="resultadoAlmoco"></span> (<span id="nomePessoaAlmoco">Victor Cardoso</span>)</p>
+                        <div class="time" id="textoParaCopiarAlmoco">12:00:00</div>
+                    </button>
                 </div>
             </div>
-
         </div>
 
-        <div class="clock-container">
-            <div class="clock" id="cafe">
-                <div class="container">
-                    <div class="center">
-                        <button class="btn" onclick="copiarTexto('cafe')">
-                            <p>Café: <span id="resultadoCafe"></span> (<span id="nomePessoaCafe">Victor Cardoso</span>)</p>
-                            <div class="time" id="textoParaCopiarCafe">12:00:00</div>
-                        </button>
-                    </div>
+        <!-- Botão de marcação de Café -->
+        <div class="clock-container" id="cafe">
+            <div class="container">
+                <div class="center">
+                    <button class="btn" onclick="copiarTexto('Café')">
+                        <p>Café: <span id="resultadoCafe"></span> (<span id="nomePessoaCafe">Victor Cardoso</span>)</p>
+                        <div class="time" id="textoParaCopiarCafe">12:00:00</div>
+                    </button>
                 </div>
             </div>
-
         </div>
 
-        <div class="clock-container">
-            <div class="clock" id="retorno">
-                <div class="container">
-                    <div class="center">
-                        <button class="btn" onclick="copiarTexto('retorno')">
-                            <p>Retorno: <span id="resultadoRetorno"></span> (<span id="nomePessoaRetorno">Victor Cardoso</span>)</p>
-                            <div class="time" id="textoParaCopiarRetorno">12:00:00</div>
-                        </button>
-                    </div>
+        <!-- Botão de marcação de Retorno -->
+        <div class="clock-container" id="retorno">
+            <div class="container">
+                <div class="center">
+                    <button class="btn" onclick="copiarTexto('Retorno')">
+                        <p>Retorno: <span id="resultadoRetorno"></span> (<span id="nomePessoaRetorno">Victor Cardoso</span>)</p>
+                        <div class="time" id="textoParaCopiarRetorno">12:00:00</div>
+                    </button>
                 </div>
             </div>
-
         </div>
 
-        <div class="clock-container">
-            <div class="clock" id="saida">
-                <div class="container">
-                    <div class="center">
-                        <button class="btn" onclick="copiarTexto('saida')">
-                            <p>Saída: <span id="resultadoSaida"></span> (<span id="nomePessoaSaida">Victor Cardoso</span>)</p>
-                            <div class="time" id="textoParaCopiarSaida">12:00:00</div>
-                        </button>
-                    </div>
+        <!-- Botão de marcação de Saída -->
+        <div class="clock-container" id="saida">
+            <div class="container">
+                <div class="center">
+                    <button class="btn" onclick="copiarTexto('Saída')">
+                        <p>Saída: <span id="resultadoSaida"></span> (<span id="nomePessoaSaida">Victor Cardoso</span>)</p>
+                        <div class="time" id="textoParaCopiarSaida">12:00:00</div>
+                    </button>
                 </div>
             </div>
-
         </div>
     </main>
+
     <footer>
         <div class="footer-content">
-            <a href="https://victorcardosool.github.io/Victor-Cardoso/" target="_blank" class="coppy">© 2024 Victor
-                Cardoso<br></a>
+            <a href="https://victorcardosool.github.io/Victor-Cardoso/" target="_blank" class="coppy">© 2024 Victor Cardoso</a>
         </div>
     </footer>
-    <svg xmlns="http://www.w3.org/2000/svg" class="goo" version="1.1" width="100%">
-        <defs>
-            <filter id="goo">
-                <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur"></feGaussianBlur>
-                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 35 -15"
-                    result="goo"></feColorMatrix>
-                <feComposite in="SourceGraphic" in2="goo" operator="atop"></feComposite>
-            </filter>
-        </defs>
-    </svg>
 
-
-    <div id="cursor"></div>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script src="script.js"></script>
-
-
+    <script src="funcionario.js"></script>
 </body>
-
 </html>
