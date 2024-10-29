@@ -3,174 +3,111 @@ const baseURL = window.location.hostname === 'localhost'
     : 'https://painelsupervidorbackend.onrender.com';
 
 function updateTime(idTextoParaCopiar, idResultado) {
-  const timeElement = document.getElementById(idTextoParaCopiar);
-  const now = new Date();
-  const hours = now.getHours().toString().padStart(2, '0');
-  const minutes = now.getMinutes().toString().padStart(2, '0');
-  const timeString = `${hours}h${minutes}`;
-  timeElement.textContent = timeString;
-  document.getElementById(idResultado).textContent = timeString;
+    const timeElement = document.getElementById(idTextoParaCopiar);
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const timeString = `${hours}:${minutes}`; // Alterado para ":" ao invés de "h"
+    timeElement.textContent = timeString;
+    document.getElementById(idResultado).textContent = timeString;
 }
 
 // Atualiza o horário em intervalos de 1 segundo
 setInterval(function () {
-  updateTime('textoParaCopiarEntrada', 'resultadoEntrada');
-  updateTime('textoParaCopiarAlmoco', 'resultadoAlmoco');
-  updateTime('textoParaCopiarCafe', 'resultadoCafe');
-  updateTime('textoParaCopiarRetorno', 'resultadoRetorno');
-  updateTime('textoParaCopiarSaida', 'resultadoSaida');
+    updateTime('textoParaCopiarEntrada', 'resultadoEntrada');
+    updateTime('textoParaCopiarCafe1', 'resultadoCafe1');
+    updateTime('textoParaCopiarRetornoCafe1', 'resultadoRetornoCafe1');
+    updateTime('textoParaCopiarAlmoco', 'resultadoAlmoco');
+    updateTime('textoParaCopiarRetornoAlmoco', 'resultadoRetornoAlmoco');
+    updateTime('textoParaCopiarCafe2', 'resultadoCafe2');
+    updateTime('textoParaCopiarRetornoCafe2', 'resultadoRetornoCafe2');
+    updateTime('textoParaCopiarSaida', 'resultadoSaida');
 }, 1000);
-
-// Função para copiar o horário e enviar ao backend
-function copiarTexto(idResultado, tipo) {
-  const textoCopiado = document.getElementById(idResultado).innerText;
-  copiarParaAreaDeTransferencia(textoCopiado);
-  enviarMarcacao(tipo, textoCopiado);
-}
 
 // Função auxiliar para copiar o texto para a área de transferência
 function copiarParaAreaDeTransferencia(texto) {
-  const tempInput = document.createElement('textarea');
-  tempInput.value = texto;
-  document.body.appendChild(tempInput);
-  tempInput.select();
-  document.execCommand('copy');
-  document.body.removeChild(tempInput);
-}
-
-// Função para enviar a marcação do ponto ao backend
-async function enviarMarcacao(tipo, hora) {
-  const nome = document.getElementById('inputNome').value || 'Victor Cardoso';
-  const categoria = document.querySelector('input[name="categoria"]:checked')?.value || 'CLT';
-  const dataAtual = new Date().toLocaleDateString("pt-BR");
-
-  const ponto = {
-    nome: nome,
-    categoria: categoria,
-    tipo: tipo,
-    data: dataAtual,
-    hora: hora
-  };
-
-  try {
-    const response = await fetch(`${baseURL}/pontos`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(ponto)
-    });
-
-    if (response.ok) {
-      alert(`${tipo} registrado com sucesso!`);
-    } else {
-      alert(`Erro ao registrar ${tipo}.`);
-    }
-  } catch (error) {
-    console.error("Erro ao conectar com o servidor:", error);
-    alert("Falha ao conectar com o servidor.");
-  }
+    const tempInput = document.createElement('textarea');
+    tempInput.value = texto;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempInput);
 }
 
 // Atualiza a data atual no cabeçalho
 function atualizarData() {
-  const dataAtual = new Date();
-  const diaSemana = capitalizeFirstLetter(dataAtual.toLocaleDateString('pt-BR', { weekday: 'long' }));
-  const dia = String(dataAtual.getDate()).padStart(2, '0');
-  const mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
-  const ano = dataAtual.getFullYear();
-  const dataFormatada = `${diaSemana}: ${dia} | ${mes} | ${ano}`;
-  document.getElementById('currentDate').textContent = dataFormatada;
+    const dataAtual = new Date();
+    const diaSemana = capitalizeFirstLetter(dataAtual.toLocaleDateString('pt-BR', { weekday: 'long' }));
+    const dia = String(dataAtual.getDate()).padStart(2, '0');
+    const mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
+    const ano = dataAtual.getFullYear();
+    const dataFormatada = `${diaSemana}: ${dia} | ${mes} | ${ano}`;
+    document.getElementById('currentDate').textContent = dataFormatada;
 }
 
 function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 atualizarData();
 
 function atualizarNome() {
-  const inputNome = document.getElementById('inputNome').value || 'Victor Cardoso';
-  document.getElementById('nomePessoaEntrada').textContent = inputNome;
-  document.getElementById('nomePessoaAlmoco').textContent = inputNome;
-  document.getElementById('nomePessoaCafe').textContent = inputNome;
-  document.getElementById('nomePessoaRetorno').textContent = inputNome;
-  document.getElementById('nomePessoaSaida').textContent = inputNome;
+    const inputNome = document.getElementById('inputNome').value || 'Seu nome';
 
-  // Salva o nome no localStorage
-  localStorage.setItem('nome', inputNome);
+    // Atualizando o nome em todos os pontos
+    document.getElementById('nomePessoaEntrada').textContent = inputNome;
+    document.getElementById('nomePessoaAlmoco').textContent = inputNome;
+    document.getElementById('nomePessoaCafe1').textContent = inputNome; // Atualizado para cafe1
+    document.getElementById('nomePessoaRetornoCafe1').textContent = inputNome; // Atualizado para retornoCafe1
+    document.getElementById('nomePessoaCafe2').textContent = inputNome; // Atualizado para cafe2
+    document.getElementById('nomePessoaRetornoCafe2').textContent = inputNome; // Atualizado para retornoCafe2
+    document.getElementById('nomePessoaRetornoAlmoco').textContent = inputNome; // Atualizado para retornoAlmoco
+    document.getElementById('nomePessoaSaida').textContent = inputNome;
+
+    // Salva o nome no localStorage
+    localStorage.setItem('nome', inputNome);
 }
 
 // Carrega o nome salvo no localStorage (se houver)
 function carregarNomeSalvo() {
-  const nomeSalvo = localStorage.getItem('nome') || 'Victor Cardoso';
-  document.getElementById('inputNome').value = nomeSalvo;
-  atualizarNome();
+    const nomeSalvo = localStorage.getItem('nome') || 'Seu nome';
+    document.getElementById('inputNome').value = nomeSalvo;
+    atualizarNome();
 }
 
 window.onload = carregarNomeSalvo;
-function copiarTexto(idResultado, tipo) {
-  const textoCopiado = document.getElementById(idResultado).innerText;
-  copiarParaAreaDeTransferencia(textoCopiado);
-  enviarMarcacao(tipo, textoCopiado);
+
+// Função para copiar o texto dentro do botão
+function copiarTexto(id) {
+    const botao = document.getElementById(id);
+    const nome = botao.querySelector('p').innerText; // Pega o texto do botão
+    const horario = botao.querySelector('.time').innerText; // Pega o horário
+    const textoCompleto = nome + ' '; // Cria o texto completo sem repetição
+    copiarParaAreaDeTransferencia(textoCompleto); // Copia o texto completo
 }
 
-function copiarParaAreaDeTransferencia(texto) {
-  const tempInput = document.createElement('textarea');
-  tempInput.value = texto;
-  document.body.appendChild(tempInput);
-  tempInput.select();
-  const success = document.execCommand('copy');
-  document.body.removeChild(tempInput);
-  return success; // Retorna se a cópia foi bem-sucedida
-}
+// Função para mostrar ou esconder os botões com base na seleção do rádio
+function atualizarVisibilidadeBotoes() {
+  const estagiarioSelecionado = document.querySelector('input[name="categoria"]:checked').value === "Estagiário";
+  const cafe2Container = document.getElementById('cafe2');
+  const retornoCafe2Container = document.getElementById('retornoCafe2');
 
-async function enviarMarcacao(tipo, hora) {
-  const nome = document.getElementById('inputNome').value || 'Victor Cardoso';
-  const categoria = document.querySelector('input[name="categoria"]:checked')?.value || 'CLT';
-  const dataAtual = new Date().toLocaleDateString("pt-BR");
-
-  const ponto = {
-      nome: nome,
-      categoria: categoria,
-      tipo: tipo,
-      data: dataAtual,
-      hora: hora
-  };
-
-  try {
-      const response = await fetch(`${baseURL}/pontos`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(ponto)
-      });
-
-      // Seleciona o ícone de validação correspondente
-      const validationIcon = document.getElementById(`validation${tipo}`);
-      
-      if (response.ok) {
-          validationIcon.textContent = "✔"; // Ícone de sucesso
-          validationIcon.classList.add("success");
-          validationIcon.classList.remove("error");
-      } else {
-          validationIcon.textContent = "✖"; // Ícone de erro
-          validationIcon.classList.add("error");
-          validationIcon.classList.remove("success");
-      }
-
-      validationIcon.style.display = "inline"; // Mostra o ícone
-      setTimeout(() => {
-          validationIcon.style.display = "none"; // Oculta após 2 segundos
-          validationIcon.textContent = ""; // Limpa o ícone
-      }, 2000);
-  } catch (error) {
-      const validationIcon = document.getElementById(`validation${tipo}`);
-      validationIcon.textContent = "✖"; // Ícone de erro
-      validationIcon.classList.add("error");
-      validationIcon.classList.remove("success");
-      validationIcon.style.display = "inline";
-      
-      setTimeout(() => {
-          validationIcon.style.display = "none"; // Oculta após 2 segundos
-          validationIcon.textContent = ""; // Limpa o ícone
-      }, 2000);
+  if (estagiarioSelecionado) {
+      cafe2Container.style.display = 'none';
+      retornoCafe2Container.style.display = 'none';
+  } else {
+      cafe2Container.style.display = 'block';
+      retornoCafe2Container.style.display = 'block';
   }
 }
+
+// Adiciona o evento de mudança aos botões de rádio
+document.querySelectorAll('input[name="categoria"]').forEach((input) => {
+  input.addEventListener('change', atualizarVisibilidadeBotoes);
+});
+
+// Chama a função ao carregar a página para definir o estado inicial
+window.onload = () => {
+  carregarNomeSalvo();
+  atualizarVisibilidadeBotoes(); // Chama a função para definir o estado inicial
+};
